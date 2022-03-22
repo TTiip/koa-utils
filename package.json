@@ -10,13 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.10",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "koa-session": "^6.2.0",
     "koa2-cors": "^2.0.6",
-    "superagent": "^7.1.1"
+    "superagent": "^7.1.1",
+    "cheerio": "^1.0.0-rc.10"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.7",
