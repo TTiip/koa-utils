@@ -1,1 +1,1 @@
-export * from './dellAnalyze'
+export * from './zhihuHotAnalyze'

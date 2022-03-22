@@ -2,7 +2,7 @@ import * as superagent from 'superagent'
 import * as cheerio from 'cheerio'
 import { AnalyzeInterFace, HotListItemInterFace } from '../interface'
 
-class DellAnalyzer implements AnalyzeInterFace {
+class zhihuHotAnalyze implements AnalyzeInterFace {
   private async getHtml() {
 		const res = await superagent.get(this.url)
 		return res.text
@@ -42,5 +42,5 @@ class DellAnalyzer implements AnalyzeInterFace {
 }
 
 export {
-	DellAnalyzer
+	zhihuHotAnalyze
 }

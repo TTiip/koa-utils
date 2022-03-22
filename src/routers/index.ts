@@ -4,7 +4,7 @@ import { getResponseData } from '../interface'
 import { Context } from 'koa'
 import koaRouter from 'koa-router'
 
-import { DellAnalyzer } from '../analyzer'
+import { zhihuHotAnalyze } from '../analyzer'
 import { Crowller } from '../crowller'
 
 const router = new koaRouter()
@@ -65,7 +65,7 @@ router.post('/login', async (ctx: Context) => {
 router.get('/getData', async (ctx: Context) => {
 	const url: string = 'https://www.zhihu.com/billboard'
 
-	const dell = new DellAnalyzer(url)
+	const dell = new zhihuHotAnalyze(url)
 	new Crowller(writePath, dell)
 	ctx.body = getResponseData(true)
 })
