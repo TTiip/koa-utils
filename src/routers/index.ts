@@ -62,6 +62,14 @@ router.post('/login', async (ctx: Context) => {
 	}
 })
 
+router.get('/logout', async (ctx: Context) => {
+	if (ctx.session) {
+		ctx.session.userInfo = {}
+		ctx.session.login = false
+	}
+	ctx.body = getResponseData(true)
+})
+
 router.get('/getData', async (ctx: Context) => {
 	const url: string = 'https://www.zhihu.com/billboard'
 
