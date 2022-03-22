@@ -8,6 +8,7 @@ import { zhihuHotAnalyze } from '../analyzer'
 import { Crowller } from '../crowller'
 
 const router = new koaRouter()
+
 const writePath = resolve(__dirname, '../index.json')
 
 router.get('/', async (ctx: Context) => {
