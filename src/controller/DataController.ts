@@ -39,4 +39,6 @@ class DataController {
 	}
 }
 
-export default DataController
+export {
+	DataController
+}

@@ -71,4 +71,6 @@ class LoginController {
 	}
 }
 
-export default LoginController
+export {
+	LoginController
+}

@@ -4,7 +4,7 @@ import { Methods } from './request'
 
 const router = new koaRouter()
 
-const CONTROLLER = (target: new (...arg: any) => any) => {
+const CONTROLLER = (target: new (...args: any) => any) => {
 	for (let key in target.prototype) {
 		// 路由的地址
 		const path: string = Reflect.getMetadata('path', target.prototype, key)
