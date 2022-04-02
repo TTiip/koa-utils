@@ -1,11 +1,9 @@
-import 'reflect-metadata'
 import { Context } from 'koa'
 import { getResponseData } from '../interface'
-import { controller, get, post } from './decorator'
-
-@controller
+import { CONTROLLER, GET, POST } from '../decorator'
+@CONTROLLER
 class LoginController {
-	@get('/')
+	@GET('/')
 	async home (ctx: Context) {
 		const isLogin = ctx.session && ctx.session.login
 		if (isLogin) {
@@ -36,7 +34,7 @@ class LoginController {
 		}
 	}
 
-	@post('/login')
+	@POST('/login')
 	login(ctx: Context) {
 		const isLogin = ctx.session && ctx.session.login
 		const { password } = ctx.request.body
@@ -58,7 +56,7 @@ class LoginController {
 		}
 	}
 
-	@get('/logout')
+	@GET('/logout')
 	logout(ctx: Context) {
 		if (ctx.session) {
 			ctx.session.userInfo = {}
