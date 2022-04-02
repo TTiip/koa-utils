@@ -3,9 +3,13 @@ import { getResponseData } from '../interface'
 import { CONTROLLER, GET, POST } from '../decorator'
 @CONTROLLER
 class LoginController {
+	isLogin(ctx: Context): boolean {
+		const isLogin = !!(ctx.session ? ctx.session.login : false)
+		return isLogin
+	}
 	@GET('/')
 	async home (ctx: Context) {
-		const isLogin = ctx.session && ctx.session.login
+		const isLogin = this.isLogin(ctx)
 		if (isLogin) {
 			ctx.body = `
 				<html>
@@ -36,7 +40,7 @@ class LoginController {
 
 	@POST('/login')
 	login(ctx: Context) {
-		const isLogin = ctx.session && ctx.session.login
+		const isLogin = this.isLogin(ctx)
 		const { password } = ctx.request.body
 
 		if (isLogin) {
