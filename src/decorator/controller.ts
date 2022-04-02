@@ -4,7 +4,7 @@ import { Methods } from './request'
 
 const router = new koaRouter()
 
-const CONTROLLER = (prefix: string = '') => {
+const CONTROLLER = (prefix: string = '/') => {
 	return (target: new (...args: any) => any) => {
 		for (let key in target.prototype) {
 			// 路由的地址
@@ -16,7 +16,7 @@ const CONTROLLER = (prefix: string = '') => {
 			// 路由的中间件
 			const middleware: () => Promise<any> = Reflect.getMetadata('middleware', target.prototype, key)
 			if (path && method) {
-				const prefixCoverPath = prefix + path
+				const prefixCoverPath = prefix === '/' ? path : `${prefix}${path}`
 				if (middleware) {
 					// 给指定路由使用中间件。
 					router.use(prefixCoverPath, middleware)
