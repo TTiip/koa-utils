@@ -10,7 +10,8 @@ import { checkLogin } from '../middleware'
 const writePath = resolve(__dirname, '../index.json')
 
 const checkLogin1111 = (ctx: Context, next: () => Promise<any>): void => {
-  ctx.body = getResponseData(null, '请先登录1111')
+	console.log(111222333)
+	next()
 }
 
 @CONTROLLER()

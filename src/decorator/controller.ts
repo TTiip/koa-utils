@@ -14,16 +14,16 @@ const CONTROLLER = (prefix: string = '/') => {
 			// 路由的方法
 			const handler: any = target.prototype[key]
 			// 路由的中间件
-			const middleware: () => Promise<any> = Reflect.getMetadata('middleware', target.prototype, key)
+			const middlewares: any[] = Reflect.getMetadata('middlewares', target.prototype, key) || []
 			if (path && method) {
 				const prefixCoverPath = prefix === '/' ? path : `${prefix}${path}`
-				if (middleware) {
+				if (middlewares.length) {
 					// 给指定路由使用中间件。
-					router.use(prefixCoverPath, middleware)
-					router[method](prefixCoverPath, handler)
+					// router.use(prefixCoverPath, ...middlewares)
+					// router[method](prefixCoverPath, handler)
 					// 第二种写法。
 					// 猜测，中间件的本质也是一个函数，传入ctx对象。
-					// router[method](prefixCoverPath, middleware, handler)
+					router[method](prefixCoverPath, ...middlewares, handler)
 				} else {
 					router[method](prefixCoverPath, handler)
 				}
