@@ -4,19 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "ts-node ./src/app.ts"
+    "serve": "ts-node ./src/app.ts",
+    "test": "tsc && node ./build/controller/LoginController.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "koa-session": "^6.2.0",
     "koa2-cors": "^2.0.6",
-    "superagent": "^7.1.1",
-    "cheerio": "^1.0.0-rc.10"
+    "superagent": "^7.1.1"
   },
   "devDependencies": {
     "@types/koa-bodyparser": "^4.3.7",
@@ -24,6 +25,7 @@
     "@types/koa-session": "^5.10.6",
     "@types/koa2-cors": "^2.0.2",
     "@types/superagent": "^4.1.15",
+    "reflect-metadata": "^0.1.13",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   }
