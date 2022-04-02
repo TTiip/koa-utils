@@ -13,7 +13,7 @@ const checkLogin1111 = (ctx: Context, next: () => Promise<any>): void => {
   ctx.body = getResponseData(null, '请先登录1111')
 }
 
-@CONTROLLER
+@CONTROLLER()
 class DataController {
 	@GET('/getData')
 	@USE(checkLogin)

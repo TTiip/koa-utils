@@ -1,7 +1,7 @@
 import { Context } from 'koa'
 import { getResponseData } from '../interface'
 import { CONTROLLER, GET, POST } from '../decorator'
-@CONTROLLER
+@CONTROLLER()
 class LoginController {
 	// 此处设计成静态防范，方便类没有调用的是时候也能直接 判断。
 	static isLogin(ctx: Context): boolean {
