@@ -3,13 +3,14 @@ import { getResponseData } from '../interface'
 import { CONTROLLER, GET, POST } from '../decorator'
 @CONTROLLER
 class LoginController {
-	isLogin(ctx: Context): boolean {
+	// 此处设计成静态防范，方便类没有调用的是时候也能直接 判断。
+	static isLogin(ctx: Context): boolean {
 		const isLogin = !!(ctx.session ? ctx.session.login : false)
 		return isLogin
 	}
 	@GET('/')
 	async home (ctx: Context) {
-		const isLogin = this.isLogin(ctx)
+		const isLogin = LoginController.isLogin(ctx)
 		if (isLogin) {
 			ctx.body = `
 				<html>
@@ -40,7 +41,7 @@ class LoginController {
 
 	@POST('/login')
 	login(ctx: Context) {
-		const isLogin = this.isLogin(ctx)
+		const isLogin = LoginController.isLogin(ctx)
 		const { password } = ctx.request.body
 
 		if (isLogin) {
