@@ -4,17 +4,17 @@ import { Methods } from './request'
 
 const router = new koaRouter()
 
-const CONTROLLER = (target: any) => {
+const CONTROLLER = (target: new (...arg: any) => any) => {
 	for (let key in target.prototype) {
 		// 路由的地址
-		const path = Reflect.getMetadata('path', target.prototype, key)
+		const path: string = Reflect.getMetadata('path', target.prototype, key)
 		// 请求类型
 		const method: Methods = Reflect.getMetadata('method', target.prototype, key)
 		// 路由的方法
-		const handler = target.prototype[key]
+		const handler: any = target.prototype[key]
 		// 路由的中间件
-		const middleware = Reflect.getMetadata('middleware', target.prototype, key)
-		if (path && method && handler) {
+		const middleware: () => Promise<any> = Reflect.getMetadata('middleware', target.prototype, key)
+		if (path && method) {
 			if (middleware) {
         // 给指定路由使用中间件。
         router.use(path, middleware)
