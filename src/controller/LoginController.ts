@@ -1,6 +1,7 @@
-import { Context } from 'koa'
 import 'reflect-metadata'
-import { controller, get } from './decorator'
+import { Context } from 'koa'
+import { getResponseData } from '../interface'
+import { controller, get, post } from './decorator'
 
 @controller
 class LoginController {
@@ -33,6 +34,37 @@ class LoginController {
 				</html>
 			`
 		}
+	}
+
+	@post('/login')
+	login(ctx: Context) {
+		const isLogin = ctx.session && ctx.session.login
+		const { password } = ctx.request.body
+
+		if (isLogin) {
+			ctx.body = getResponseData(false, '已经登陆过')
+		} else {
+			if (ctx.session) {
+				if (password[1] === '123') {
+					ctx.session.login = true
+					ctx.session.userInfo = { name: password[0], password: password[1] }
+					ctx.body = getResponseData(true)
+				} else {
+					ctx.body = getResponseData(false, '密码错误！')
+				}
+			} else {
+				ctx.body = getResponseData(false, '登陆失败')
+			}
+		}
+	}
+
+	@get('/logout')
+	logout(ctx: Context) {
+		if (ctx.session) {
+			ctx.session.userInfo = {}
+			ctx.session.login = false
+		}
+		ctx.body = getResponseData(true)
 	}
 }
 
