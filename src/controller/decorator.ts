@@ -15,6 +15,8 @@ const getRequestDecorator = (type: string) => {
 		}
 	}
 }
+
+// 生成多种请求类型
 const get = getRequestDecorator('get')
 const post = getRequestDecorator('post')
 const put = getRequestDecorator('put')
