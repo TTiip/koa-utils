@@ -1,17 +1,6 @@
 import { Context } from 'koa'
 import 'reflect-metadata'
-
-const get = (path: string) => {
-	return function (target: any, key: string) {
-		Reflect.defineMetadata('path', path, target, key)
-	}
-}
-
-const controller = (target: any) => {
-	for (let key in target.prototype) {
-		console.log(Reflect.getMetadata('path', target.prototype, key))
-	}
-}
+import { controller, get } from './decorator'
 
 @controller
 class LoginController {
