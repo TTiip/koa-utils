@@ -4,7 +4,9 @@ const router = new koaRouter()
 
 const enum Method {
 	get = 'get',
-	post = 'post'
+	post = 'post',
+	put = 'put',
+	delete = 'delete'
 }
 
 const getRequestDecorator = (type: string) => {
