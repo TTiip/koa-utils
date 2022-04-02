@@ -18,6 +18,12 @@ const getRequestDecorator = (type: string) => {
 	}
 }
 
+const use = (middleware: (...arg: any) => void) => {
+	return (target: any, key: string) => {
+		Reflect.defineMetadata('middleware', middleware, target, key)
+	}
+}
+
 // 生成多种请求类型
 const get = getRequestDecorator('get')
 const post = getRequestDecorator('post')
@@ -32,8 +38,19 @@ const controller = (target: any) => {
 		const method: Method = Reflect.getMetadata('method', target.prototype, key)
 		// 路由的方法
 		const handler = target.prototype[key]
+		// 路由的中间件
+		const middleware = Reflect.getMetadata('middleware', target.prototype, key)
 		if (path && method && handler) {
-			router[method](path, handler)
+			if (middleware) {
+        // 给指定路由使用中间件。
+        router.use(path, middleware)
+        router[method](path, handler)
+        // 第二种写法。
+        // 猜测，中间件的本质也是一个函数，传入ctx对象。
+        // router[method](path, middleware, handler)
+      } else {
+        router[method](path, handler)
+      }
 		}
 	}
 }
@@ -43,6 +60,7 @@ export {
 	post,
 	put,
 	del,
+	use,
 	controller,
 	router
 }
