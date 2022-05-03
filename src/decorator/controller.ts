@@ -23,9 +23,9 @@ const CONTROLLER = (prefix: string = '/') => {
 					// router[method](prefixCoverPath, handler)
 					// 第二种写法。
 					// 猜测，中间件的本质也是一个函数，传入ctx对象。
-					router[method](prefixCoverPath, ...middlewares, handler)
+					router[method](prefixCoverPath, ...middlewares, handler.bind(target.prototype))
 				} else {
-					router[method](prefixCoverPath, handler)
+					router[method](prefixCoverPath, handler.bind(target.prototype))
 				}
 			}
 		}
