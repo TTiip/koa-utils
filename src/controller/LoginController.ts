@@ -28,7 +28,7 @@ class LoginController {
 						<form method="post" action="/login">
 							账号随意，密码123。
 							<br/ >
-							账号：<input type="text" name="password" />
+							账号：<input type="text" name="name" />
 							<br/ >
 							密码：<input type="password" name="password" />
 							<button>登陆</button>
@@ -41,16 +41,16 @@ class LoginController {
 
 	@POST('/login')
 	login(ctx: Context) {
-		const isLogin = LoginController.isLogin(ctx)
-		const { password } = ctx.request.body
+		const isLogin = ctx.session && ctx.session.login
+		const { name, password } = ctx.request.body
 
 		if (isLogin) {
 			ctx.body = getResponseData(false, '已经登陆过')
 		} else {
 			if (ctx.session) {
-				if (password[1] === '123') {
+				if (password === '123') {
 					ctx.session.login = true
-					ctx.session.userInfo = { name: password[0], password: password[1] }
+					ctx.session.userInfo = { name: name, password: password }
 					ctx.body = getResponseData(true)
 				} else {
 					ctx.body = getResponseData(false, '密码错误！')
